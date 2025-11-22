@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.daniellauding.plotta-alfred</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>1A1BBFD0-70F7-4C8F-A3A8-2CA2FA6B1234</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2B2CCFE1-81G8-5D9G-B4B9-3DB3GB7C5678</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3C3DDGF2-92H9-6E0H-C5C0-4EC4HC8D7890</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4D4EEHG3-A3I0-7F1I-D6D1-5FD5ID9E8901</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Daniel Lauding</string>
+	<key>description</key>
+	<string>Create and manage Plotta sticky notes from Alfred</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Plotta Notes</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>plotta</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Creating sticky note...</string>
+				<key>script</key>
+				<string>node main.js "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Create a new sticky note in Plotta</string>
+				<key>title</key>
+				<string>Add to Plotta</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>1A1BBFD0-70F7-4C8F-A3A8-2CA2FA6B1234</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>node create.js "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>2B2CCFE1-81G8-5D9G-B4B9-3DB3GB7C5678</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>plottalist</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading notes...</string>
+				<key>script</key>
+				<string>node list.js</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>List your Plotta notes</string>
+				<key>title</key>
+				<string>List Plotta Notes</string>
+				<key>type</key>
+				<integer>5</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>3C3DDGF2-92H9-6E0H-C5C0-4EC4HC8D7890</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4D4EEHG3-A3I0-7F1I-D6D1-5FD5ID9E8901</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Plotta Alfred Workflow
+
+This workflow allows you to create and manage Plotta sticky notes directly from Alfred.
+
+Commands:
+- plotta [text] - Create a new sticky note
+- plottalist - List your recent notes
+
+Setup:
+1. Set your Supabase URL and API key in the workflow variables
+2. Optionally log in to sync notes to your account</string>
+	<key>uidata</key>
+	<dict>
+		<key>1A1BBFD0-70F7-4C8F-A3A8-2CA2FA6B1234</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>2B2CCFE1-81G8-5D9G-B4B9-3DB3GB7C5678</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>3C3DDGF2-92H9-6E0H-C5C0-4EC4HC8D7890</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+		<key>4D4EEHG3-A3I0-7F1I-D6D1-5FD5ID9E8901</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<dict>
+		<key>SUPABASE_URL</key>
+		<string>https://your-project.supabase.co</string>
+		<key>SUPABASE_ANON_KEY</key>
+		<string>your-anon-key</string>
+	</dict>
+	<key>variablesdontexport</key>
+	<array>
+		<string>SUPABASE_URL</string>
+		<string>SUPABASE_ANON_KEY</string>
+	</array>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/daniellauding/plotta-alfred</string>
+</dict>
+</plist>
