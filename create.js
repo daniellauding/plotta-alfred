@@ -6,14 +6,23 @@ const path = require('path');
 
 // Get Alfred workflow data
 const alfredWorkflowData = process.env.alfred_workflow_data || '';
-const configPath = path.join(alfredWorkflowData, 'config.json');
+const dataDir = alfredWorkflowData || path.join(require('os').homedir(), '.plotta-alfred');
+const configPath = path.join(dataDir, 'config.json');
+
+// Plotta's public configuration
+const PLOTTA_CONFIG = {
+  supabaseUrl: 'https://jxhtlgdzjqhrgrnhnqfp.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aHRsZ2R6anFocmdybmhucWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2Njk3ODIsImV4cCI6MjA0NzI0NTc4Mn0.vOvUOI1Q4zVwUMLYR_Ny8mjjVW6a2ZMPf6EEjKGGCw8'
+};
 
 // Load configuration
 let config = {
-  supabaseUrl: process.env.SUPABASE_URL || '',
-  supabaseKey: process.env.SUPABASE_ANON_KEY || '',
+  supabaseUrl: PLOTTA_CONFIG.supabaseUrl,
+  supabaseKey: PLOTTA_CONFIG.supabaseKey,
   accessToken: null,
+  refreshToken: null,
   userId: null,
+  userEmail: null,
   anonymousMode: true
 };
 
@@ -30,10 +39,7 @@ async function createSticky(data) {
   try {
     const { content, project, createProject } = JSON.parse(data);
     
-    if (!config.supabaseUrl || !config.supabaseKey) {
-      console.log('Error: Supabase configuration missing. Please set SUPABASE_URL and SUPABASE_ANON_KEY in Alfred workflow variables.');
-      return;
-    }
+    // Configuration is now hardcoded, no need to check
 
     const supabase = createClient(config.supabaseUrl, config.supabaseKey, {
       auth: {
@@ -148,7 +154,10 @@ async function createSticky(data) {
 
 function saveToLocalStorage(sticky) {
   const STORAGE_KEY = "dumpa_stickies";
-  const dataPath = path.join(alfredWorkflowData, 'local_stickies.json');
+  
+  // Use a fallback directory if Alfred workflow data is not available
+  const dataDir = alfredWorkflowData || path.join(require('os').homedir(), '.plotta-alfred');
+  const dataPath = path.join(dataDir, 'local_stickies.json');
   
   let stickies = [];
   if (fs.existsSync(dataPath)) {
@@ -170,8 +179,8 @@ function saveToLocalStorage(sticky) {
   
   try {
     // Ensure directory exists
-    if (!fs.existsSync(alfredWorkflowData)) {
-      fs.mkdirSync(alfredWorkflowData, { recursive: true });
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
     }
     fs.writeFileSync(dataPath, JSON.stringify(stickies, null, 2));
   } catch (error) {

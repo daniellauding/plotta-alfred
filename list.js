@@ -6,15 +6,24 @@ const path = require('path');
 
 // Get Alfred workflow data
 const alfredWorkflowData = process.env.alfred_workflow_data || '';
-const configPath = path.join(alfredWorkflowData, 'config.json');
-const localStickiesPath = path.join(alfredWorkflowData, 'local_stickies.json');
+const dataDir = alfredWorkflowData || path.join(require('os').homedir(), '.plotta-alfred');
+const configPath = path.join(dataDir, 'config.json');
+const localStickiesPath = path.join(dataDir, 'local_stickies.json');
+
+// Plotta's public configuration
+const PLOTTA_CONFIG = {
+  supabaseUrl: 'https://jxhtlgdzjqhrgrnhnqfp.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aHRsZ2R6anFocmdybmhucWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2Njk3ODIsImV4cCI6MjA0NzI0NTc4Mn0.vOvUOI1Q4zVwUMLYR_Ny8mjjVW6a2ZMPf6EEjKGGCw8'
+};
 
 // Load configuration
 let config = {
-  supabaseUrl: process.env.SUPABASE_URL || '',
-  supabaseKey: process.env.SUPABASE_ANON_KEY || '',
+  supabaseUrl: PLOTTA_CONFIG.supabaseUrl,
+  supabaseKey: PLOTTA_CONFIG.supabaseKey,
   accessToken: null,
+  refreshToken: null,
   userId: null,
+  userEmail: null,
   anonymousMode: true
 };
 
@@ -48,7 +57,7 @@ async function listStickies() {
     }
     
     // Load online stickies if authenticated
-    if (config.userId && config.supabaseUrl && config.supabaseKey) {
+    if (config.userId) {
       const supabase = createClient(config.supabaseUrl, config.supabaseKey, {
         auth: {
           persistSession: false
@@ -90,18 +99,19 @@ async function listStickies() {
       items.unshift({
         uid: 'plotta-login',
         title: 'Login to Plotta',
-        subtitle: 'Sign in to sync your notes across devices',
-        arg: 'login',
+        subtitle: 'Press Enter to open login page, then run: node auth.js extract',
+        arg: 'https://plotta.app/auth',
         icon: {
           path: 'icon.png'
         }
       });
     } else {
       items.unshift({
-        uid: 'plotta-logout',
-        title: 'Logout from Plotta',
-        subtitle: 'Sign out and use anonymous mode',
-        arg: 'logout',
+        uid: 'plotta-status',
+        title: `Logged in as ${config.userEmail || 'User'}`,
+        subtitle: 'Notes are syncing to your Plotta account',
+        arg: '',
+        valid: false,
         icon: {
           path: 'icon.png'
         }

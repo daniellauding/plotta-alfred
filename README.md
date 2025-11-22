@@ -15,29 +15,23 @@ A simple Alfred workflow for creating and managing [Plotta](https://plotta.app) 
 
 1. Download the `.alfredworkflow` file from the releases
 2. Double-click to install in Alfred
-3. Set up your Supabase configuration (see Configuration below)
+3. Start using immediately! No configuration needed.
 
-## Configuration
-
-### Supabase Setup
-
-To sync with Plotta, you need to configure the workflow with your Plotta Supabase credentials:
-
-1. In Alfred, open the workflow and click the `[×]` button to configure variables
-2. Set these variables:
-   - `SUPABASE_URL`: Your Plotta Supabase URL
-   - `SUPABASE_ANON_KEY`: Your Plotta anonymous key
-
-For the main Plotta app, these would be the same values used in the web application.
-
-### Authentication (Optional)
+## Authentication (Optional)
 
 The workflow works in anonymous mode by default, storing notes locally. To sync with your Plotta account:
 
+### Easy Browser Login
+
 1. Open Terminal and navigate to the workflow directory
-2. Run `node auth.js login` for login instructions
-3. Follow the instructions to get your auth token
-4. Run `node auth.js set-token [your-token]` to authenticate
+2. Run `node auth.js login` - this opens https://plotta.app/auth
+3. Log in with your Plotta account in your browser
+4. Run `node auth.js extract` - this automatically extracts your login session
+5. You're done! Notes will now sync to your account.
+
+### Commands
+- `node auth.js status` - Check if you're logged in
+- `node auth.js logout` - Switch back to anonymous mode
 
 ## Commands
 
@@ -54,7 +48,8 @@ Lists your recent sticky notes. Click any note to open it in Plotta web app.
 ### Manual Commands (Terminal)
 
 - `node auth.js status` - Check login status
-- `node auth.js login` - Get login instructions
+- `node auth.js login` - Open login page and show instructions  
+- `node auth.js extract` - Extract login session from browser
 - `node auth.js logout` - Log out and switch to anonymous mode
 
 ## Usage

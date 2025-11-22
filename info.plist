@@ -196,8 +196,9 @@ Commands:
 - plottalist - List your recent notes
 
 Setup:
-1. Set your Supabase URL and API key in the workflow variables
-2. Optionally log in to sync notes to your account</string>
+1. Install the workflow (no configuration needed!)
+2. Optionally log in via Terminal: node auth.js login
+3. Start creating notes!</string>
 	<key>uidata</key>
 	<dict>
 		<key>1A1BBFD0-70F7-4C8F-A3A8-2CA2FA6B1234</key>
@@ -229,18 +230,6 @@ Setup:
 			<integer>180</integer>
 		</dict>
 	</dict>
-	<key>variables</key>
-	<dict>
-		<key>SUPABASE_URL</key>
-		<string>https://your-project.supabase.co</string>
-		<key>SUPABASE_ANON_KEY</key>
-		<string>your-anon-key</string>
-	</dict>
-	<key>variablesdontexport</key>
-	<array>
-		<string>SUPABASE_URL</string>
-		<string>SUPABASE_ANON_KEY</string>
-	</array>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
